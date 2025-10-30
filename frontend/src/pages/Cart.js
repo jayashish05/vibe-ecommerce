@@ -10,11 +10,7 @@ const Cart = ({ onCartUpdate }) => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchCart();
-  }, []);
-
-  const fetchCart = async () => {
+  const fetchCart = React.useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -27,7 +23,11 @@ const Cart = ({ onCartUpdate }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [onCartUpdate]);
+
+  useEffect(() => {
+    fetchCart();
+  }, [fetchCart]);
 
   const handleRemove = async (id) => {
     try {

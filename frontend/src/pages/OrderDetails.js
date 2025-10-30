@@ -11,15 +11,7 @@ const OrderDetails = () => {
   const { token } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!token) {
-      navigate('/login');
-      return;
-    }
-    fetchOrder();
-  }, [id, token, navigate]);
-
-  const fetchOrder = async () => {
+  const fetchOrder = React.useCallback(async () => {
     try {
       setLoading(true);
       const data = await getOrderById(token, id);
@@ -29,7 +21,15 @@ const OrderDetails = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [token, id]);
+
+  useEffect(() => {
+    if (!token) {
+      navigate('/login');
+      return;
+    }
+    fetchOrder();
+  }, [token, navigate, fetchOrder]);
 
   if (loading) {
     return (

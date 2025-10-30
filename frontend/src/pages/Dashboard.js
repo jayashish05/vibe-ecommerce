@@ -13,7 +13,7 @@ const Dashboard = () => {
   const [showAddressForm, setShowAddressForm] = useState(false);
   const [editingAddress, setEditingAddress] = useState(null);
   
-  const { user, token, logout, updateUser } = useAuth();
+  const { token, logout, updateUser } = useAuth();
   const navigate = useNavigate();
 
   const [profileForm, setProfileForm] = useState({
@@ -34,15 +34,7 @@ const Dashboard = () => {
     isDefault: false
   });
 
-  useEffect(() => {
-    if (!token) {
-      navigate('/login');
-      return;
-    }
-    fetchData();
-  }, [token, navigate]);
-
-  const fetchData = async () => {
+  const fetchData = React.useCallback(async () => {
     try {
       setLoading(true);
       const [profileData, ordersData] = await Promise.all([
@@ -61,7 +53,15 @@ const Dashboard = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [token]);
+
+  useEffect(() => {
+    if (!token) {
+      navigate('/login');
+      return;
+    }
+    fetchData();
+  }, [token, navigate, fetchData]);
 
   const handleProfileUpdate = async (e) => {
     e.preventDefault();

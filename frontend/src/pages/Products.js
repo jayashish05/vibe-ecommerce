@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ProductCard from '../components/ProductCard';
-import { getProducts, addToCart, seedProducts, seedFromFakeStore } from '../services/api';
+import { getProducts, addToCart, seedFromFakeStore } from '../services/api';
 
 const Products = ({ onCartUpdate }) => {
   const [products, setProducts] = useState([]);
@@ -8,7 +8,6 @@ const Products = ({ onCartUpdate }) => {
   const [addingToCart, setAddingToCart] = useState(null);
   const [error, setError] = useState(null);
   const [notification, setNotification] = useState(null);
-  const [seeding, setSeeding] = useState(false);
 
   useEffect(() => {
     fetchProducts();
@@ -48,23 +47,6 @@ const Products = ({ onCartUpdate }) => {
       console.error(err);
     } finally {
       setAddingToCart(null);
-    }
-  };
-
-  const handleSeedFromFakeStore = async () => {
-    try {
-      setSeeding(true);
-      setError(null);
-      await seedFromFakeStore();
-      const newData = await getProducts();
-      setProducts(newData);
-      setNotification('Products loaded from Fake Store API!');
-      setTimeout(() => setNotification(null), 3000);
-    } catch (err) {
-      setError('Failed to load products from Fake Store API');
-      console.error(err);
-    } finally {
-      setSeeding(false);
     }
   };
 

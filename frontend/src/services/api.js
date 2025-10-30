@@ -7,7 +7,7 @@ const getApiUrl = () => {
   
   if (window.location.hostname.includes('github.dev') || window.location.hostname.includes('app.github.dev')) {
     const port = window.location.port ? `:${window.location.port}` : '';
-    return `${window.location.protocol}//${window.location.hostname.replace(/\-3000/, '-5001')}${port}/api`;
+    return `${window.location.protocol}//${window.location.hostname.replace(/-3000/, '-5001')}${port}/api`;
   }
   
   return 'http://localhost:5001/api';

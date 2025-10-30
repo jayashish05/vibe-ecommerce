@@ -27,15 +27,7 @@ const Checkout = ({ onCartUpdate }) => {
   const [error, setError] = useState(null);
   const [receipt, setReceipt] = useState(null);
 
-  useEffect(() => {
-    if (isAuthenticated && token) {
-      fetchAddresses();
-    } else if (isAuthenticated && !token) {
-      setShowAddressForm(true);
-    }
-  }, [isAuthenticated, token]);
-
-  const fetchAddresses = async () => {
+  const fetchAddresses = React.useCallback(async () => {
     try {
       const profile = await getProfile(token);
       setAddresses(profile.addresses || []);
@@ -49,7 +41,15 @@ const Checkout = ({ onCartUpdate }) => {
       console.error('Failed to fetch addresses');
       setShowAddressForm(true);
     }
-  };
+  }, [token]);
+
+  useEffect(() => {
+    if (isAuthenticated && token) {
+      fetchAddresses();
+    } else if (isAuthenticated && !token) {
+      setShowAddressForm(true);
+    }
+  }, [isAuthenticated, token, fetchAddresses]);
 
   const handleAddressChange = (e) => {
     setAddressForm({
