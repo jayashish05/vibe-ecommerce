@@ -1,5 +1,7 @@
 # 🛍️ Vibe Commerce
 
+#Hosted Link: https://vibe-commerce-frontend.onrender.com
+
 A production-ready full-stack e-commerce platform built with React, Node.js, Express, and MongoDB. This professional shopping application features complete user authentication, order management, address handling, and all essential e-commerce functionalities.
 
 ## 🚀 Features
