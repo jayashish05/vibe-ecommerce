@@ -213,27 +213,21 @@ All order endpoints require authentication token in header.
 3. **Configure environment variables**
    
    The `.env` file should contain:
-   ```
-   PORT=5001
-   MONGODB_URI=mongodb://localhost:27017/vibecommerce
-   NODE_ENV=development
-   ```
    
-   Or use MongoDB Atlas:
    ```
    PORT=5001
    MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/vibecommerce?retryWrites=true&w=majority
    NODE_ENV=development
    ```
 
-4. **Start MongoDB (if using local)**
+5. **Start MongoDB (if using local)**
    
    Make sure MongoDB is running on your system:
    ```bash
    mongod
    ```
 
-5. **Start backend server**
+6. **Start backend server**
    ```bash
    npm start
    ```
@@ -249,7 +243,7 @@ All order endpoints require authentication token in header.
 
 1. **Navigate to frontend directory**
    ```bash
-   cd my-app
+   cd frontend
    ```
 
 2. **Install dependencies**
