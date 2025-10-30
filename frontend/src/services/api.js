@@ -1,6 +1,19 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5001/api';
+const getApiUrl = () => {
+  if (process.env.REACT_APP_API_URL) {
+    return process.env.REACT_APP_API_URL;
+  }
+  
+  if (window.location.hostname.includes('github.dev') || window.location.hostname.includes('app.github.dev')) {
+    const port = window.location.port ? `:${window.location.port}` : '';
+    return `${window.location.protocol}//${window.location.hostname.replace(/\-3000/, '-5001')}${port}/api`;
+  }
+  
+  return 'http://localhost:5001/api';
+};
+
+const API_URL = getApiUrl();
 
 const getSessionId = () => {
   let sessionId = localStorage.getItem('sessionId');
